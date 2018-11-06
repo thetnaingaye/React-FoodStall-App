@@ -8,8 +8,8 @@ class CreateOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            emailerror: "",
+            customer: "",
+            customererror: "",
             password: "",
             passworderror: "",
             passwordconfirm: "",
@@ -18,13 +18,21 @@ class CreateOrder extends Component {
         }
     }
 
+    nameInputHandler = (e) => {
+        this.setState({
+            customer : e.target.value,
+            customererror : ""
+        });
+    };
+
     render() {
         const form = (
             <div>
 
                 <form onSubmit={this.formHandler} >
-
-
+                    <Customer name={this.state.customer} error={this.state.customererror} nameInputHandler={this.nameInputHandler} />
+                    <Food />
+                    <Size />
                     <button className="btn btn-success btn-lg">Order</button>
                 </form>
             </div>
@@ -35,9 +43,6 @@ class CreateOrder extends Component {
                 <div className="page-header">
                     <h3>New Order</h3>
                 </div>
-                <Customer />
-                <Food />
-                <Size />
                 {!this.state.isFormSuccess ? form : <h3>Form Submission Successful</h3>}
             </div>
         );

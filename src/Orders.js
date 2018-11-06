@@ -7,16 +7,19 @@ class Order extends Component {
         this.state = {
             orders: [
                 {
+                    orderid : "001",
                     customerName: "Naing",
                     food: "chicken rice",
                     size: "medium"
                 },
                 {
+                    orderid : "002",
                     customerName: "Alice",
                     food: "fishball noodle",
                     size: "small"
                 },
                 {
+                    orderid : "003",
                     customerName: "Tony",
                     food: "fish-and-chip",
                     size: "large"
@@ -43,7 +46,7 @@ class Order extends Component {
                         </thead>
                         <tbody>
                             {this.state.orders.map(od => {
-                                return (<tr>
+                                return (<tr key={od.orderid}>
                                     <td>{od.customerName}</td>
                                     <td>{od.food}</td>
                                     <td>{od.size}</td>

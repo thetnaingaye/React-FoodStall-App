@@ -43,7 +43,7 @@ class App extends Component {
       <div className="App">
 
         <nav className="navbar navbar-default App-header">
-          Your Express Foodstall
+          <div>Your Express Foodstall</div>
         </nav>
 
         <div className="container-fluid ">
@@ -52,7 +52,7 @@ class App extends Component {
             <div className="col-md-2 sidebar-offcanvas">
               <Navbar />
             </div>
-            <div className="col-md-10">
+            <div className="col-md-9">
               <br />
               <div className="jumbotron">
                 <Switch>

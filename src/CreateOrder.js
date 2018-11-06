@@ -98,7 +98,7 @@ class CreateOrder extends Component {
         return (
             <div className="myForm">
                 <div className="page-header">
-                    <h3>New Order</h3>
+                    <h2>Let's eat !</h2>
                 </div>
                 {form}
                 <NotificationContainer />

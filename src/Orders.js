@@ -1,62 +1,41 @@
 import React, { Component } from 'react';
 
 class Order extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            orders: [
-                {
-                    orderid : "001",
-                    customerName: "Naing",
-                    food: "chicken rice",
-                    size: "medium"
-                },
-                {
-                    orderid : "002",
-                    customerName: "Alice",
-                    food: "fishball noodle",
-                    size: "small"
-                },
-                {
-                    orderid : "003",
-                    customerName: "Tony",
-                    food: "fish-and-chip",
-                    size: "large"
-                }
-            ]
-
-        }
-    }
 
     render() {
+
+        const ordertable = (
+            <div className="table-responsive">
+                <table className="table table-hover">
+                    <thead className="thead-dark">
+                        <tr>
+                            <td>Customer Name</td>
+                            <td>Food</td>
+                            <td>Size</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.orders.map(od => {
+                            return (<tr key={od.orderid}>
+                                <td>{od.customerName}</td>
+                                <td>{od.food}</td>
+                                <td>{od.size}</td>
+                                <td><button className="btn btn-danger" style={{ backgroundColor: "#FF5733"}} onClick={() => { this.props.deleteOrder(od.orderid) }} >Delete</button></td>
+                            </tr>);
+
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        );
+
         return (
             <div>
                 <div className="page-header">
                     <h3>Order Summary</h3>
                 </div>
-                <div className="table-responsive">
-                    <table className="table table-hover">
-                        <thead className="thead-dark">
-                            <tr>
-                                <td>Customer Name</td>
-                                <td>Food</td>
-                                <td>Size</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.orders.map(od => {
-                                return (<tr key={od.orderid}>
-                                    <td>{od.customerName}</td>
-                                    <td>{od.food}</td>
-                                    <td>{od.size}</td>
-                                    <td><button className="btn btn-danger">Cancel Order</button></td>
-                                </tr>);
-
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+                {this.props.orders.length>0 ? ordertable : <h4 style={{color:"red"}}>Currently, there is no order. Please click on new order to start ordering.</h4>}
             </div>
         );
     }

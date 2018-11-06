@@ -43,7 +43,7 @@ class App extends Component {
       <div className="App">
 
         <nav className="navbar navbar-default App-header">
-          FoodStall Express
+          Your Express Foodstall
         </nav>
 
         <div className="container-fluid ">

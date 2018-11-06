@@ -3,7 +3,7 @@ import Customer from './Order/Form/Customer';
 import Food from './Order/Form/Food';
 import Size from './Order/Form/Size';
 import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 
 class CreateOrder extends Component {
@@ -15,9 +15,12 @@ class CreateOrder extends Component {
             customererror: "",
             food: "",
             fooderror: "",
-            size: "",
+            size: "Small",
             sizeerror: "",
-            isFormSuccess: false
+            isFormSuccess: false,
+            foodList: [
+                'Chicken Rice', 'Fish and Chips', 'Dumpling Noddles', 'Nasi Lemak'
+            ]
         }
     }
 
@@ -28,22 +31,6 @@ class CreateOrder extends Component {
             isFormSuccess: false
         });
     };
-
-    foodInputHandler = (e) => {
-        this.setState({
-            food: e.target.value,
-            foodrerror: "",
-            isFormSuccess: false
-        });
-    };
-
-    sizeInputHandler = (e) => {
-        this.setState({
-            size: e.target.value,
-            sizeerror: "",
-            isFormSuccess: false
-        });
-    }
 
     orderHandler = (e) => {
         e.preventDefault();
@@ -58,18 +45,35 @@ class CreateOrder extends Component {
             isFormSuccess: true
         })
 
-
+        this.resetForm();
     }
 
+    foodDropDownHandler = (opt) => {
+        console.log(opt.value);
+        this.setState({
+            food: opt.value,
+            foodrerror: "",
+            isFormSuccess: false
+        });
+    }
+
+    radioSizeHandler = (e) => {
+        console.log(e.target.value);
+        this.setState({
+            size: e.target.value,
+            sizeerror: "",
+            isFormSuccess: false
+        });
+    }
     resetForm = () => {
-        NotificationManager.success(`You have ordered ${this.state.size} ${this.state.food} successfully`, `Hi, ${this.state.customer}`,5000)
+        NotificationManager.success(`You have ordered ${this.state.size} size ${this.state.food} successfully`, `Hi, ${this.state.customer}`, 3000)
         this.setState({
 
             customer: "",
             customererror: "",
             food: "",
             fooderror: "",
-            size: "",
+            size: "Small",
             sizeerror: "",
             isFormSuccess: false
         })
@@ -81,10 +85,13 @@ class CreateOrder extends Component {
 
                 <form onSubmit={this.formHandler} >
                     <Customer name={this.state.customer} error={this.state.customererror} nameInputHandler={this.nameInputHandler} />
-                    <Food name={this.state.food} error={this.state.fooderror} foodInputHandler={this.foodInputHandler} />
-                    <Size name={this.state.size} sizeInputHandler={this.sizeInputHandler} />
-                    <button className="btn btn-success btn-lg" onClick={this.orderHandler} disabled={!(this.state.customer && this.state.food  && this.state.size)} >Order</button>
+                    <Food foodList={this.state.foodList} food={this.state.food} error={this.state.fooderror} foodInputHandler={this.foodDropDownHandler} />
+                    <Size size={this.state.size} sizeChanged={this.radioSizeHandler} />
+                    <br />
+                    <button className="btn btn-success btn-lg" onClick={this.orderHandler} disabled={!(this.state.customer && this.state.food && this.state.size)} >Order</button>
                 </form>
+
+        
             </div>
         )
 
@@ -94,8 +101,7 @@ class CreateOrder extends Component {
                     <h3>New Order</h3>
                 </div>
                 {form}
-                {this.state.isFormSuccess && this.resetForm()}
-                <NotificationContainer/>
+                <NotificationContainer />
             </div>
         );
     }

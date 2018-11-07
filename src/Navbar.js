@@ -7,9 +7,7 @@ const Navbar = (props) => {
             <ul className="nav">
                 <li className="nav-divider"></li>
                 <li>
-
-                    <NavLink to='/' className="btn btn-danger btn-lg" ><span className="glyphicon glyphicon-cutlery"></span> NEW ORDER</NavLink>
-
+                    <NavLink to='/' className="btn btn-danger btn-lg" ><span className="glyphicon glyphicon-cutlery"></span><h5>NEW ORDER</h5></NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>

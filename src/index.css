@@ -13,13 +13,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.container-fluid{
+  padding-left: 60px;
+}
 
 @media only screen and (max-width: 1400px) {
   body {
-  
       background-size: auto;
-     
+  }
+  .container-fluid{
+    padding-left: 15px;
   }
 }
 

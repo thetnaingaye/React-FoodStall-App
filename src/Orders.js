@@ -14,6 +14,7 @@ class Order extends Component {
                             <td>Customer Name</td>
                             <td>Food</td>
                             <td>Size</td>
+                            <td>Toppings</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,6 +23,7 @@ class Order extends Component {
                                 <td>{od.customerName}</td>
                                 <td>{od.food}</td>
                                 <td>{od.size}</td>
+                                <td>{od.toppings && od.toppings.map((t,index) => { return <div key={index}>{t}</div>})}</td>
                                 <td><button className="btn btn-danger" style={{ backgroundColor: "#FF5733"}} onClick={() => { this.props.deleteOrder(od.orderid) }} >Delete</button></td>
                             </tr>);
 

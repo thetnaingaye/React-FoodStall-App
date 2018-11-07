@@ -60,7 +60,7 @@ class App extends Component {
           <div>Your Express Foodstall</div>
         </nav>
 
-        <div className="container-fluid ">
+        <div className="container-fluid">
 
           <div className="row row-offcanvas row-offcanvas-left">
             <div className="col-md-2 sidebar-offcanvas">

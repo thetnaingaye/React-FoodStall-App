@@ -7,11 +7,11 @@ const Navbar = (props) => {
             <ul className="nav">
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/' className="btn btn-danger btn-lg" ><span className="glyphicon glyphicon-cutlery"></span><h5>NEW ORDER</h5></NavLink>
+                    <NavLink to='/' className="btn btn-danger btn-lg" style={{textAlign:"right"}} ><span className="glyphicon glyphicon-cutlery"></span> NEW ORDER</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary' className="btn btn-info btn-lg" ><span className="glyphicon glyphicon-shopping-cart"></span> ORDER SUMMARY</NavLink>
+                    <NavLink to='/Summary' className="btn btn-info btn-lg" style={{textAlign:"right"}} ><span className="glyphicon glyphicon-shopping-cart"></span> ORDER SUMMARY</NavLink>
                 </li>
                 <li className="nav-divider"></li>
             </ul>

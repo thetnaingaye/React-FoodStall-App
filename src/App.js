@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom';
 
 import OrdersGrid from './OrdersGrid';
+import OrdersAntTable from './OrdersAntTable';
 
 class App extends Component {
 
@@ -53,6 +54,23 @@ class App extends Component {
     }
   }
 
+
+  getOrders() {
+    if (this.state.orders) {
+      return this.state.orders
+    } else {
+      const localOrders = JSON.parse(localStorage.getItem('myOrders'));
+      if (localOrders) {
+        console.log("Orders from Local Storage : " + JSON.stringify(localOrders));
+        this.setState({
+          orders: localOrders
+        })
+      }
+
+    }
+  }
+
+
   render() {
 
     return (
@@ -75,13 +93,15 @@ class App extends Component {
                   <Route path="/summary" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
                   <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
                   <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />
+                  <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
+
                 </Switch>
               </div>
             </div>
           </div>
         </div>
 
-        
+
       </div>
 
 

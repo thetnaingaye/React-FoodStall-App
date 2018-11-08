@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 class Order extends Component {
 
 
@@ -30,6 +29,8 @@ class Order extends Component {
                         })}
                     </tbody>
                 </table>
+            
+
             </div>
         );
 
@@ -39,6 +40,7 @@ class Order extends Component {
                     <h3>Order Summary</h3>
                 </div>
                 {this.props.orders.length>0 ? ordertable : <h4 style={{color:"red"}}>Currently, there is no order. Please click on new order to start ordering.</h4>}
+           
             </div>
         );
     }

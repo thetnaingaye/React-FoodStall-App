@@ -5,6 +5,8 @@ import CreateOrder from './CreateOrder';
 import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom';
 
+import OrdersGrid from './OrdersGrid';
+
 class App extends Component {
 
   constructor(props) {
@@ -72,11 +74,14 @@ class App extends Component {
                 <Switch>
                   <Route path="/summary" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
                   <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
+                  <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />
                 </Switch>
               </div>
             </div>
           </div>
         </div>
+
+        
       </div>
 
 

@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "immutable": "^4.0.0-rc.12",
     "react": "^16.6.0",
+    "react-data-grid": "^5.0.4-2",
+    "react-data-grid-addons": "^5.0.4-2",
     "react-dom": "^16.6.0",
     "react-dropdown": "^1.6.2",
     "react-notifications": "^1.4.3",

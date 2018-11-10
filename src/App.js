@@ -4,10 +4,16 @@ import Order from './Orders';
 import CreateOrder from './CreateOrder';
 import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 import OrdersGrid from './OrdersGrid';
 import OrdersAntTable from './OrdersAntTable';
+import {observer, inject} from 'mobx-react';
 
+
+@withRouter
+@inject("orderStore")
+@observer
 class App extends Component {
 
   constructor(props) {
@@ -27,6 +33,7 @@ class App extends Component {
       orders: neworders
     });
     localStorage.setItem('myOrders', JSON.stringify(neworders));
+    this.props.orderStore.addOrder(order);
   }
 
   deleteOrderHandler = (id) => {
@@ -41,6 +48,7 @@ class App extends Component {
       orders: newOrders
     });
     localStorage.setItem('myOrders', JSON.stringify(newOrders));
+    this.props.orderStore.removeOrder(order);
   }
 
 
@@ -52,6 +60,10 @@ class App extends Component {
         orders: localOrders
       })
     }
+  }
+
+  componentDidUpdate() {
+    console.log("MobX orders: "+JSON.stringify(this.props.orderStore.orders))
   }
 
 
@@ -89,6 +101,7 @@ class App extends Component {
             <div className="col-md-9">
               <br />
               <div className="jumbotron">
+              
                 <Switch>
                   <Route path="/summary" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
                   <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
@@ -96,6 +109,7 @@ class App extends Component {
                   <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
 
                 </Switch>
+                
               </div>
             </div>
           </div>

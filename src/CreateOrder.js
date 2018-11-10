@@ -5,6 +5,8 @@ import Size from './Order/Form/Size';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Select from 'react-select';
+import {observer, inject} from 'mobx-react';
+
 
 const toppings = [
     { value: 'More Chilli', label: 'More Chilli' },

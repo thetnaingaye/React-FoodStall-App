@@ -36,7 +36,7 @@ const columns = [{
     dataIndex: 'toppings',
     render: toppings => (
         <span>
-          {toppings.map(tag => <Tag color="peru" key={tag}>{tag}</Tag>)}
+          {toppings && toppings.map(tag => <Tag color="peru" key={tag}>{tag}</Tag>)}
         </span>
       )
 

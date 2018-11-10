@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import OrdersAntTable from './OrdersAntTable';
+import {observer, inject} from 'mobx-react';
+
+
+@inject('orderStore')
+@observer
 class Order extends Component {
 
     render() {
+        
 
         const ordertable = (
             <div className="table-responsive">
@@ -16,7 +21,7 @@ class Order extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.orders.map(od => {
+                        {this.props.orderStore.orders.map(od => {
                             return (<tr key={od.orderid}>
                                 <td>{od.customerName}</td>
                                 <td>{od.food}</td>
@@ -36,7 +41,7 @@ class Order extends Component {
                 <div className="page-header">
                     <h3>Order Summary</h3>
                 </div>
-                {this.props.orders.length>0 ? ordertable : <h4 style={{color:"red"}}>Currently, there is no order. Please click on new order to start ordering.</h4>}
+                {this.props.orderStore.orders.length>0 ? ordertable : <h4 style={{color:"red"}}>Currently, there is no order. Please click on new order to start ordering.</h4>}
             </div>
         );
     }

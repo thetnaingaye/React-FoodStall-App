@@ -1,7 +1,12 @@
 import ReactDataGrid from 'react-data-grid';
 import React from 'react';
+import {observer, inject} from 'mobx-react';
+
 const { Toolbar, Data: { Selectors } } = require('react-data-grid-addons');
 
+
+@inject("orderStore")
+@observer
 class OrdersGrid extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -16,7 +21,6 @@ class OrdersGrid extends React.Component {
     ];
 
     this.state = {
-      orders: this.props.orders,
       rows: this.createRows(),
       filters: {}
     };
@@ -36,19 +40,23 @@ class OrdersGrid extends React.Component {
 
   createRows = () => {
     let rows = [];
-    const orders =this.getOrders();
-    orders.map(od => {
+    const orders =this.props.orderStore.orders;
+    if(orders){
+      orders.map(od => {
 
-      rows.push({
-        customer: od.customerName,
-        food: od.food,
-        size: od.size,
-        salt: od.toppings.indexOf('More Salt') >= 0 ? "Yes" : "No",
-        chilli: od.toppings.indexOf('More Chilli') >= 0 ? "Yes" : "No",
-        pepper: od.toppings.indexOf('More Pepper') >= 0 ? "Yes" : "No"
-      });
-    })
+        rows.push({
+          customer: od.customerName,
+          food: od.food,
+          size: od.size,
+          salt: od.toppings.indexOf('More Salt') >= 0 ? "Yes" : "No",
+          chilli: od.toppings.indexOf('More Chilli') >= 0 ? "Yes" : "No",
+          pepper: od.toppings.indexOf('More Pepper') >= 0 ? "Yes" : "No"
+        });
+      })
+  
 
+    }
+  
     return rows;
   };
 

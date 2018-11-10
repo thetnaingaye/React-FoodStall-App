@@ -34,6 +34,17 @@ class CreateOrder extends Component {
 
         }
     }
+    componentDidMount() {
+        fetch('https://66e64h2nef.execute-api.us-east-1.amazonaws.com/prod/myServerlessWebsite')
+        .then(response => response.json())
+        .then(data =>  {
+            let fList =[]
+            data.map(data => {
+                fList.push(data.foodName)
+            });
+            this.setState({ foodList:fList })
+        });
+    }
 
     handleChange = (selectedTopping) => {
         this.setState({ selectedTopping });

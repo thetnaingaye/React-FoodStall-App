@@ -42,6 +42,7 @@ class CreateOrder extends Component {
             data.map(data => {
                 fList.push(data.foodName)
             });
+            fList.sort();
             this.setState({ foodList:fList })
         });
     }

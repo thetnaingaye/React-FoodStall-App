@@ -27,6 +27,9 @@ const columns = [
         }, {
             text: 'Nasi Lemak',
             value: 'Nasi Lemak',
+        }, {
+            text: 'Fried Bee Hoon',
+            value: 'Fried Bee Hoon',
         }],
         filterMultiple: true,
         onFilter: (value, record) => record.food.indexOf(value) === 0,

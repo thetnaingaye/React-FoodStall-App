@@ -15,11 +15,11 @@ const Navbar = (props) => {
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"orange"}} ><span className="glyphicon glyphicon-th-list"></span> ORDER SUMMARY</NavLink>
+                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"orange"}} ><span className="glyphicon glyphicon-th-list"></span> ORDERS</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/anttable' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"darkgreen"}} ><span className="glyphicon glyphicon-th-list"></span> ORDER SUMMARY</NavLink>
+                    <NavLink to='/Summary/anttable' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"darkgreen"}} ><span className="glyphicon glyphicon-th-list"></span> ORDERS</NavLink>
                 </li>
             </ul>
         </div>

@@ -5,7 +5,7 @@ import Size from './Order/Form/Size';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Select from 'react-select';
-import {observer, inject} from 'mobx-react';
+
 
 
 const toppings = [
@@ -28,7 +28,7 @@ class CreateOrder extends Component {
             sizeerror: "",
             isFormSuccess: false,
             foodList: [
-                'Chicken Rice', 'Fish and Chips', 'Dumpling Noodles', 'Nasi Lemak'
+               
             ],
             selectedTopping: null,
 
@@ -40,7 +40,7 @@ class CreateOrder extends Component {
         .then(data =>  {
             let fList =[]
             data.map(data => {
-                fList.push(data.foodName)
+                return fList.push(data.foodName)
             });
             fList.sort();
             this.setState({ foodList:fList })
@@ -63,10 +63,10 @@ class CreateOrder extends Component {
         e.preventDefault();
         const toppings = this.state.selectedTopping? this.state.selectedTopping.map(t => t.value) : ""
         const order = {
-            customerName: this.state.customer,
+            customer: this.state.customer,
             food: this.state.food,
             size: this.state.size,
-            toppings : toppings
+            toppings : toppings? toppings : []
         }
         console.log(order);
         this.props.createOrder(order);
@@ -95,7 +95,7 @@ class CreateOrder extends Component {
         });
     }
     resetForm = () => {
-        NotificationManager.success(`You have ordered ${this.state.size} size ${this.state.food} successfully`, `Hi, ${this.state.customer}`, 3000)
+        NotificationManager.success(`Order ${this.state.size} size ${this.state.food} is added to cart`, `Customer : ${this.state.customer}`, 3000)
         this.setState({
 
             customer: "",

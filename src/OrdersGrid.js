@@ -1,6 +1,7 @@
 import ReactDataGrid from 'react-data-grid';
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import ReactLoading from 'react-loading';
 
 const { Toolbar, Data: { Selectors } } = require('react-data-grid-addons');
 
@@ -12,26 +13,57 @@ class OrdersGrid extends React.Component {
     super(props, context);
     this._columns = [
       { key: 'customer', name: 'Customer', filterable: true, locked: true },
-      { key: 'food', name: 'Food', filterable: true,width:200 },
+      { key: 'food', name: 'Food', filterable: true, width: 200 },
       { key: 'size', name: 'Size' },
       { key: 'salt', name: 'More Salt' },
       { key: 'chilli', name: 'More Salt' },
       { key: 'pepper', name: 'More Pepper' },
+      { key: 'status', name: 'Status' },
 
     ];
 
     this.state = {
-      rows: this.createRows(),
-      filters: {}
+      rows: [],
+      filters: {},
+      orders: [],
+      loading: true,
     };
 
+  }
+
+  componentDidMount() {
+    fetch('https://t9tkzjene1.execute-api.us-east-1.amazonaws.com/prod/foodstall/orders?id=*')
+      .then(response => response.json())
+      .then(data => {
+        let rows = []
+        const orders = data;
+        if (orders) {
+          orders.map(od => {
+
+            return rows.push({
+              customer: od.customer,
+              food: od.food,
+              size: od.size,
+              salt: od.toppings.indexOf('more salt') >= 0 ? "Yes" : "No",
+              chilli: od.toppings.indexOf('more chilli') >= 0 ? "Yes" : "No",
+              pepper: od.toppings.indexOf('more pepper') >= 0 ? "Yes" : "No",
+              status: od.status
+            });
+          })
+        }
+
+        this.setState({
+          rows: rows,
+          loading: false
+        })
+      });
   }
 
   getOrders() {
     const localOrders = JSON.parse(localStorage.getItem('myOrders'));
     if (localOrders) {
       console.log("Orders from Local Storage : " + JSON.stringify(localOrders));
-     
+
       return localOrders
     } else {
       return null;
@@ -40,23 +72,24 @@ class OrdersGrid extends React.Component {
 
   createRows = () => {
     let rows = [];
-    const orders =this.props.orderStore.orders;
-    if(orders){
+    const orders = this.props.orderStore.orders;
+    if (orders) {
       orders.map(od => {
 
-        rows.push({
-          customer: od.customerName,
+        return rows.push({
+          customer: od.customer,
           food: od.food,
           size: od.size,
-          salt: od.toppings.indexOf('More Salt') >= 0 ? "Yes" : "No",
-          chilli: od.toppings.indexOf('More Chilli') >= 0 ? "Yes" : "No",
-          pepper: od.toppings.indexOf('More Pepper') >= 0 ? "Yes" : "No"
+          salt: od.toppings.indexOf('more salt') >= 0 ? "Yes" : "No",
+          chilli: od.toppings.indexOf('more chilli') >= 0 ? "Yes" : "No",
+          pepper: od.toppings.indexOf('more ppper') >= 0 ? "Yes" : "No",
+          status: od.status
         });
       })
-  
+
 
     }
-  
+
     return rows;
   };
 
@@ -91,16 +124,20 @@ class OrdersGrid extends React.Component {
   render() {
     return (
       <div>
-        <ReactDataGrid
-          columns={this._columns}
-          rowGetter={this.rowGetter}
-          enableCellSelect={true}
-          rowsCount={this.getSize()}
-          minHeight={500}
-          toolbar={<Toolbar enableFilter={true} />}
-          onAddFilter={this.handleFilterChange}
-          onClearFilters={this.onClearFilters} 
-          />
+        {this.state.loading && <div><p>Getting orders...</p>
+                   <ReactLoading type="bubbles" color="peru" height={100} width={100} />
+        </div>}
+        {!this.state.loading &&
+          <ReactDataGrid
+            columns={this._columns}
+            rowGetter={this.rowGetter}
+            enableCellSelect={true}
+            rowsCount={this.getSize()}
+            minHeight={500}
+            toolbar={<Toolbar enableFilter={true} />}
+            onAddFilter={this.handleFilterChange}
+            onClearFilters={this.onClearFilters}
+          />}
       </div>);
   }
 }

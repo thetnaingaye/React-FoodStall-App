@@ -11,15 +11,15 @@ const Navbar = (props) => {
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary' className="btn btn-info btn-lg" style={{textAlign:"right"}} ><span className="glyphicon glyphicon-shopping-cart"></span> MANAGE ORDER</NavLink>
+                    <NavLink to='/checkout' className="btn btn-info btn-lg" style={{textAlign:"right"}} ><span className="glyphicon glyphicon-shopping-cart"></span> CHECK OUT</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"orange"}} ><span className="glyphicon glyphicon-shopping-cart"></span> ORDER SUMMARY</NavLink>
+                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"orange"}} ><span className="glyphicon glyphicon-th-list"></span> ORDER SUMMARY</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/anttable' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"darkgreen"}} ><span className="glyphicon glyphicon-shopping-cart"></span> ORDER SUMMARY</NavLink>
+                    <NavLink to='/Summary/anttable' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"darkgreen"}} ><span className="glyphicon glyphicon-th-list"></span> ORDER SUMMARY</NavLink>
                 </li>
             </ul>
         </div>

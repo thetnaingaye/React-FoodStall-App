@@ -103,7 +103,7 @@ class App extends Component {
               <div className="jumbotron">
               
                 <Switch>
-                  <Route path="/summary" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
+                  <Route path="/checkout" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
                   <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
                   <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />
                   <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />

@@ -16,7 +16,7 @@ class OrdersGrid extends React.Component {
       { key: 'food', name: 'Food', filterable: true, width: 200 },
       { key: 'size', name: 'Size' },
       { key: 'salt', name: 'More Salt' },
-      { key: 'chilli', name: 'More Salt' },
+      { key: 'chilli', name: 'More Chilli' },
       { key: 'pepper', name: 'More Pepper' },
       { key: 'status', name: 'Status' },
 
@@ -44,9 +44,9 @@ class OrdersGrid extends React.Component {
               customer: od.customer,
               food: od.food,
               size: od.size,
-              salt: od.toppings.indexOf('more salt') >= 0 ? "Yes" : "No",
-              chilli: od.toppings.indexOf('more chilli') >= 0 ? "Yes" : "No",
-              pepper: od.toppings.indexOf('more pepper') >= 0 ? "Yes" : "No",
+              salt: od.toppings.indexOf('More Salt') >= 0 ? "Yes" : "No",
+              chilli: od.toppings.indexOf('More Chilli') >= 0 ? "Yes" : "No",
+              pepper: od.toppings.indexOf('More Pepper') >= 0 ? "Yes" : "No",
               status: od.status
             });
           })
@@ -69,29 +69,6 @@ class OrdersGrid extends React.Component {
       return null;
     }
   }
-
-  createRows = () => {
-    let rows = [];
-    const orders = this.props.orderStore.orders;
-    if (orders) {
-      orders.map(od => {
-
-        return rows.push({
-          customer: od.customer,
-          food: od.food,
-          size: od.size,
-          salt: od.toppings.indexOf('more salt') >= 0 ? "Yes" : "No",
-          chilli: od.toppings.indexOf('more chilli') >= 0 ? "Yes" : "No",
-          pepper: od.toppings.indexOf('more ppper') >= 0 ? "Yes" : "No",
-          status: od.status
-        });
-      })
-
-
-    }
-
-    return rows;
-  };
 
   getRows = () => {
     return Selectors.getRows(this.state);

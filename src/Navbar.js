@@ -7,19 +7,19 @@ const Navbar = (props) => {
             <ul className="nav">
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/' className="btn btn-danger btn-lg" style={{textAlign:"right"}} ><span className="glyphicon glyphicon-cutlery"></span> NEW ORDER</NavLink>
+                    <NavLink to='/' className="btn btn-danger btn-lg" style={{textAlign:"left"}} ><span style={{paddingRight:"15px"}} className="glyphicon glyphicon-cutlery"></span>NEW ORDER</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/checkout' className="btn btn-info btn-lg" style={{textAlign:"right"}} ><span className="glyphicon glyphicon-shopping-cart"></span> CHECK OUT</NavLink>
+                    <NavLink to='/checkout' className="btn btn-info btn-lg" style={{textAlign:"left"}} ><span style={{paddingRight:"15px"}} className="glyphicon glyphicon-shopping-cart"></span>CHECK OUT</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"orange"}} ><span className="glyphicon glyphicon-th-list"></span> ORDERS</NavLink>
+                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{textAlign:"left",backgroundColor:"orange"}} ><span style={{paddingRight:"15px"}} className="glyphicon glyphicon-th-list"></span>ORDERS</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/anttable' className="btn btn-warning btn-lg" style={{textAlign:"right",backgroundColor:"darkgreen"}} ><span className="glyphicon glyphicon-th-list"></span> ORDERS</NavLink>
+                    <NavLink to='/Summary/anttable' className="btn btn-warning btn-lg" style={{textAlign:"left",backgroundColor:"darkgreen"}} ><span style={{paddingRight:"15px"}} className="glyphicon glyphicon-th-list"></span>ORDERS</NavLink>
                 </li>
             </ul>
         </div>

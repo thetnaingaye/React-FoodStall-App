@@ -4,6 +4,13 @@
 .navbar-default{
   border: none;
   border-radius: 0;
+  background-color: #282c34;
+  min-height: 10vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 4vmin);
+  color: white;
+  text-align: center;
 }
 
 .App-header {

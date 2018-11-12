@@ -3,7 +3,7 @@ import { observable, computed, action } from "mobx";
 
 class OrderStore {
    @observable orders = [];
-
+   @observable isAuthenticated = false;
    @action.bound 
    addOrder(item) {
      this.orders.push(item)

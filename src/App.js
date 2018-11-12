@@ -8,8 +8,8 @@ import { withRouter } from "react-router-dom";
 
 import OrdersGrid from './OrdersGrid';
 import OrdersAntTable from './OrdersAntTable';
-import {observer, inject} from 'mobx-react';
-
+import { observer, inject } from 'mobx-react';
+import Login from './Login';
 
 @withRouter
 @inject("orderStore")
@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log("MobX orders: "+JSON.stringify(this.props.orderStore.orders))
+    console.log("MobX orders: " + JSON.stringify(this.props.orderStore.orders))
   }
 
 
@@ -82,37 +82,53 @@ class App extends Component {
     }
   }
 
+  logoutHandler = () => {
+    this.props.orderStore.isAuthenticated = false;
+  }
 
   render() {
 
+    const logoutButton = (<button className="btn btn-default" onClick={this.logoutHandler}><span className="glyphicon glyphicon-log-out"></span> Log out</button>)
+    const main = (
+      <div className="row row-offcanvas row-offcanvas-left">
+        <div className="col-md-2 sidebar-offcanvas">
+          <Navbar />
+        </div>
+        <div className="col-md-9">
+          <br />
+          <div className="jumbotron">
+
+            <Switch>
+              <Route path="/checkout" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
+              <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
+              <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />
+              <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
+
+            </Switch>
+
+
+          </div>
+        </div>
+       
+      </div>
+    )
+
+    const body = this.props.orderStore.isAuthenticated ? main : <Login />
+    
     return (
       <div className="App">
 
-        <nav className="navbar navbar-default App-header">
-          <div>Your Express Foodstall</div>
+        <nav className="navbar navbar-default">
+          Your Express Foodstall
+         <ul className="nav navbar-nav navbar-right" style={{marginRight:"20px"}}>
+            <li>
+            {this.props.orderStore.isAuthenticated && logoutButton}
+            </li>
+          </ul>
         </nav>
 
         <div className="container-fluid">
-
-          <div className="row row-offcanvas row-offcanvas-left">
-            <div className="col-md-2 sidebar-offcanvas">
-              <Navbar />
-            </div>
-            <div className="col-md-9">
-              <br />
-              <div className="jumbotron">
-              
-                <Switch>
-                  <Route path="/checkout" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
-                  <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
-                  <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />
-                  <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
-
-                </Switch>
-                
-              </div>
-            </div>
-          </div>
+          {body}
         </div>
 
 

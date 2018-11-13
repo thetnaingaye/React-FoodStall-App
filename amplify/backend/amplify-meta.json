@@ -19,14 +19,17 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
 			},
-			"lastPushTimeStamp": "2018-11-13T07:01:02.683Z",
+			"lastPushTimeStamp": "2018-11-13T12:46:37.089Z",
 			"output": {
-				"S3BucketSecureURL": "https://react-foodstall-serverless.s3.amazonaws.com",
-				"WebsiteURL": "http://react-foodstall-serverless.s3-website-us-east-1.amazonaws.com",
+				"CloudFrontSecureURL": "https://d2wgy09bq2d2o5.cloudfront.net",
+				"S3BucketSecureURL": "https://naing-foodstall-react-serverless.s3.amazonaws.com",
+				"WebsiteURL": "http://naing-foodstall-react-serverless.s3-website-us-east-1.amazonaws.com",
+				"CloudFrontDistributionID": "E72ZZTYE3UYUP",
 				"Region": "us-east-1",
-				"HostingBucketName": "react-foodstall-serverless"
+				"HostingBucketName": "naing-foodstall-react-serverless",
+				"CloudFrontDomainName": "d2wgy09bq2d2o5.cloudfront.net"
 			},
-			"lastPushDirHash": "IlCXpRBR5ngaBWBEE6dSzahsIwI="
+			"lastPushDirHash": "zroYDaZNHUmyazG7o8//LG5oFZg="
 		}
 	},
 	"auth": {
@@ -37,7 +40,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/auth/cognitod68390c2-cloudformation-template.yml",
 				"logicalId": "authcognitod68390c2"
 			},
-			"lastPushTimeStamp": "2018-11-13T07:01:02.688Z",
+			"lastPushTimeStamp": "2018-11-13T12:46:37.085Z",
 			"output": {
 				"AppClientSecret": "ftp1ea0ii7t0rps3ih7g99gejtjsndgc70ho2eho2640a6lp5oa",
 				"UserPoolId": "us-east-1_mkrJXHsV3",

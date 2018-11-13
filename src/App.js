@@ -15,9 +15,13 @@ import Amplify from 'aws-amplify';
 import Auth from '@aws-amplify/auth';
 import aws_exports from './aws-exports';
 import Header from './Header';
+import decode from 'jwt-decode';
+
 
 
 Amplify.configure(aws_exports);
+
+
 
 @withRouter
 @inject("orderStore")
@@ -30,6 +34,7 @@ class App extends Component {
     this.state = {
       orders: []
     }
+
   }
 
   createOrderHanlder = (order) => {
@@ -100,7 +105,9 @@ class App extends Component {
 
 
   render() {
-
+    const accessToken = localStorage.getItem(`CognitoIdentityServiceProvider.648p7jra8h6ck576065ckg62hv.${Auth.user.username}.accessToken`)
+    const decodedToken = decode(accessToken)
+    const isOwner = decodedToken["cognito:groups"] ? decodedToken["cognito:groups"].includes('owner') : false;
 
     const main = (
       <div className="row row-offcanvas row-offcanvas-left">
@@ -114,7 +121,7 @@ class App extends Component {
             <Switch>
               <Route path="/checkout" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
               <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
-              <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />
+              {isOwner && <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />}
               <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
 
             </Switch>

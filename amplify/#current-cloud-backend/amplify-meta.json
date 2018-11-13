@@ -1,0 +1,53 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "reactfoodstall-20181113145117-authRole",
+			"UnauthRoleArn": "arn:aws:iam::858180582010:role/reactfoodstall-20181113145117-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::858180582010:role/reactfoodstall-20181113145117-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "reactfoodstall-20181113145117-deployment",
+			"UnauthRoleName": "reactfoodstall-20181113145117-unauthRole",
+			"StackName": "reactfoodstall-20181113145117",
+			"StackId": "arn:aws:cloudformation:us-east-1:858180582010:stack/reactfoodstall-20181113145117/85dd83a0-e710-11e8-ae37-500abe228429"
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-11-13T07:01:02.683Z",
+			"output": {
+				"S3BucketSecureURL": "https://react-foodstall-serverless.s3.amazonaws.com",
+				"WebsiteURL": "http://react-foodstall-serverless.s3-website-us-east-1.amazonaws.com",
+				"Region": "us-east-1",
+				"HostingBucketName": "react-foodstall-serverless"
+			},
+			"lastPushDirHash": "IlCXpRBR5ngaBWBEE6dSzahsIwI="
+		}
+	},
+	"auth": {
+		"cognitod68390c2": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/auth/cognitod68390c2-cloudformation-template.yml",
+				"logicalId": "authcognitod68390c2"
+			},
+			"lastPushTimeStamp": "2018-11-13T07:01:02.688Z",
+			"output": {
+				"AppClientSecret": "ftp1ea0ii7t0rps3ih7g99gejtjsndgc70ho2eho2640a6lp5oa",
+				"UserPoolId": "us-east-1_mkrJXHsV3",
+				"AppClientIDWeb": "648p7jra8h6ck576065ckg62hv",
+				"AppClientID": "7mkjva73u7nfv6sidlc4i6onq",
+				"IdentityPoolId": "us-east-1:f60351a8-877a-487a-94c0-589e10611b53",
+				"IdentityPoolName": "cognitod68390c2_identitypool_d68390c2",
+				"UserPoolName": "cognitod68390c2_userpool_d68390c2"
+			},
+			"lastPushDirHash": "GJGb0zODVtBvez6HOzHEOP5qYeM="
+		}
+	}
+}

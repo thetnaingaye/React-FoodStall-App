@@ -4,12 +4,20 @@ import Order from './Orders';
 import CreateOrder from './CreateOrder';
 import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom';
-import { withRouter } from "react-router-dom";
+import { withRouter,Redirect } from "react-router-dom";
 
 import OrdersGrid from './OrdersGrid';
 import OrdersAntTable from './OrdersAntTable';
 import { observer, inject } from 'mobx-react';
 import Login from './Login';
+import { ConfirmSignIn, ConfirmSignUp, ForgotPassword, RequireNewPassword, SignIn, SignUp, VerifyContact, withAuthenticator } from 'aws-amplify-react';
+import Amplify from 'aws-amplify';
+import Auth from '@aws-amplify/auth';
+import aws_exports from './aws-exports';
+import Header from './Header';
+
+
+Amplify.configure(aws_exports);
 
 @withRouter
 @inject("orderStore")
@@ -83,16 +91,21 @@ class App extends Component {
   }
 
   logoutHandler = () => {
-    this.props.orderStore.isAuthenticated = false;
+    
+    const { onStateChange } = this.props;
+    Auth.signOut().then(() => {
+             onStateChange('signedOut');
+    });
   }
+
 
   render() {
 
-    const logoutButton = (<button className="btn btn-default" onClick={this.logoutHandler}><span className="glyphicon glyphicon-log-out"></span> Log out</button>)
+
     const main = (
       <div className="row row-offcanvas row-offcanvas-left">
         <div className="col-md-2 sidebar-offcanvas">
-          <Navbar />
+          <Navbar username={Auth.user.username}/>
         </div>
         <div className="col-md-9">
           <br />
@@ -113,22 +126,15 @@ class App extends Component {
       </div>
     )
 
-    const body = this.props.orderStore.isAuthenticated ? main : <Login />
+    //const body = this.props.orderStore.isAuthenticated ? main : <Login />
     
     return (
       <div className="App">
 
-        <nav className="navbar navbar-default">
-          Your Express Foodstall
-         <ul className="nav navbar-nav navbar-right" style={{marginRight:"20px"}}>
-            <li>
-            {this.props.orderStore.isAuthenticated && logoutButton}
-            </li>
-          </ul>
-        </nav>
+        <Header logoutHandler={this.logoutHandler} isVisible={this.props.authState ==='signedIn'} username={Auth.user.username}/>
 
         <div className="container-fluid">
-          {body}
+          {main}
         </div>
 
 
@@ -139,4 +145,13 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuthenticator(App, false, [
+  <Header/>,
+  <SignIn/>,
+  <ConfirmSignIn/>,
+  <VerifyContact/>,
+  <SignUp/>,
+  <ConfirmSignUp/>,
+  <ForgotPassword/>,
+  <RequireNewPassword />
+]);

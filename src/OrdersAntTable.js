@@ -2,6 +2,8 @@ import { Table, Tag } from 'antd';
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import ReactLoading from 'react-loading';
+import Auth from '@aws-amplify/auth';
+
 
 const columns = [
     {
@@ -69,7 +71,7 @@ class OrdersAntTable extends Component {
     }
 
     componentDidMount() {
-        fetch('https://t9tkzjene1.execute-api.us-east-1.amazonaws.com/prod/foodstall/orders?id=*')
+        fetch('https://t9tkzjene1.execute-api.us-east-1.amazonaws.com/prod/foodstall/orders/user?user='+Auth.user.username)
             .then(response => response.json())
             .then(data => {
 

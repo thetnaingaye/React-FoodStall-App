@@ -10,7 +10,8 @@
   justify-content: center;
   font-size: calc(10px + 4vmin);
   color: white;
-  text-align: center;
+  text-align: left;
+  padding-left: 50px 
 }
 
 .App-header {

@@ -5,6 +5,8 @@ import Size from './Order/Form/Size';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Select from 'react-select';
+import Auth from '@aws-amplify/auth';
+
 
 
 
@@ -20,7 +22,7 @@ class CreateOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            customer: "",
+            customer: Auth.user.username,
             customererror: "",
             food: "",
             fooderror: "",
@@ -129,7 +131,7 @@ class CreateOrder extends Component {
                     <Size size={this.state.size} sizeChanged={this.radioSizeHandler} />
 
                     <br />
-                    <button className="btn btn-success btn-lg" onClick={this.orderHandler} disabled={!(this.state.customer && this.state.food && this.state.size)} >Order</button>
+                    <button className="btn btn-success btn-lg" onClick={this.orderHandler} disabled={!(this.state.customer && this.state.food && this.state.size)} >Add Order</button>
                 </form>
 
 

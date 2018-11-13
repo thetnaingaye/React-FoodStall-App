@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "reactfoodstall-20181113145117-authRole",
+            "UnauthRoleArn": "arn:aws:iam::858180582010:role/reactfoodstall-20181113145117-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::858180582010:role/reactfoodstall-20181113145117-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "reactfoodstall-20181113145117-deployment",
+            "UnauthRoleName": "reactfoodstall-20181113145117-unauthRole",
+            "StackName": "reactfoodstall-20181113145117",
+            "StackId": "arn:aws:cloudformation:us-east-1:858180582010:stack/reactfoodstall-20181113145117/85dd83a0-e710-11e8-ae37-500abe228429"
+        }
+    }
+}

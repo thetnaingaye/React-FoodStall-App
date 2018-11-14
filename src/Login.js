@@ -3,6 +3,7 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import {observer, inject} from 'mobx-react';
 import { withRouter } from "react-router-dom";
+import Auth from '@aws-amplify/auth';
 
 @withRouter
 @inject("orderStore")
@@ -29,12 +30,7 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if(this.state.email === "admin@foodstall.com" && this.state.password === "1234")
-    {
-      this.props.orderStore.isAuthenticated = true;
-    } else {
-      alert("invalid email or password");
-    }
+    Auth.signIn(this.state.email,this.state.password);
   }
 
   render() {
@@ -45,7 +41,7 @@ class Login extends Component {
             <ControlLabel>Email</ControlLabel>
             <FormControl
               autoFocus
-              type="email"
+              type="text"
               value={this.state.email}
               onChange={this.handleChange}
             />

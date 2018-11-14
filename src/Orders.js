@@ -88,7 +88,7 @@ class Order extends Component {
         );
 
         return (
-            <div>
+            <div className="jumbotron">
                 <div className="page-header">
                     <h3>Orders</h3>
                 </div>

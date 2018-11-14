@@ -4,7 +4,7 @@ import Order from './Orders';
 import CreateOrder from './CreateOrder';
 import Navbar from './Navbar';
 import { Route, Switch } from 'react-router-dom';
-import { withRouter,Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import OrdersGrid from './OrdersGrid';
 import OrdersAntTable from './OrdersAntTable';
@@ -16,6 +16,7 @@ import Auth from '@aws-amplify/auth';
 import aws_exports from './aws-exports';
 import Header from './Header';
 import decode from 'jwt-decode';
+import { Authenticator } from 'aws-amplify-react/dist/Auth';
 
 
 
@@ -34,6 +35,8 @@ class App extends Component {
     this.state = {
       orders: []
     }
+
+    this.props.orderStore.user = Auth.user.username;
 
   }
 
@@ -116,11 +119,12 @@ class App extends Component {
         </div>
         <div className="col-md-9">
           <br />
-          <div className="jumbotron">
+          <div>
 
             <Switch>
               <Route path="/checkout" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
               <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
+              {isOwner && <Route path="/ManageOrder" render={() => <div className="jumbotron"><h2>Food List</h2></div>} exact />}
               {isOwner && <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />}
               <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
 
@@ -136,29 +140,24 @@ class App extends Component {
     //const body = this.props.orderStore.isAuthenticated ? main : <Login />
     
     return (
+
       <div className="App">
 
         <Header logoutHandler={this.logoutHandler} isVisible={this.props.authState ==='signedIn'} username={Auth.user.username}/>
-
         <div className="container-fluid">
           {main}
         </div>
-
-
       </div>
 
 
     );
   }
 }
-
 export default withAuthenticator(App, false, [
   <Header/>,
   <SignIn/>,
   <ConfirmSignIn/>,
   <VerifyContact/>,
-  <SignUp/>,
-  <ConfirmSignUp/>,
   <ForgotPassword/>,
   <RequireNewPassword />
 ]);

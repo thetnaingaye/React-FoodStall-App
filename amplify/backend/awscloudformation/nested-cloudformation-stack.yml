@@ -134,6 +134,21 @@
 					"authSelections": "identityPoolAndUserPool"
 				}
 			}
+		},
+		"storagefoodstall1": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"Parameters": {
+					"bucketName": "react-foodstall-storage",
+					"authPolicyName": "s3_amplify_83832a93",
+					"unauthPolicyName": "s3_amplify_83832a93",
+					"authRoleName": "reactfoodstall-20181113145117-authRole",
+					"unauthRoleName": "reactfoodstall-20181113145117-unauthRole",
+					"authPermissions": "rw",
+					"unauthPermissions": ""
+				}
+			}
 		}
 	},
 	"Outputs": {

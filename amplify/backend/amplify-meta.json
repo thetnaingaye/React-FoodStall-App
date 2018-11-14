@@ -19,17 +19,14 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
 			},
-			"lastPushTimeStamp": "2018-11-13T12:46:37.089Z",
+			"lastPushTimeStamp": "2018-11-14T06:53:33.496Z",
 			"output": {
-				"CloudFrontSecureURL": "https://d2wgy09bq2d2o5.cloudfront.net",
-				"S3BucketSecureURL": "https://naing-foodstall-react-serverless.s3.amazonaws.com",
-				"WebsiteURL": "http://naing-foodstall-react-serverless.s3-website-us-east-1.amazonaws.com",
-				"CloudFrontDistributionID": "E72ZZTYE3UYUP",
+				"S3BucketSecureURL": "https://naing-react-foodstall-dev.s3.amazonaws.com",
+				"WebsiteURL": "http://naing-react-foodstall-dev.s3-website-us-east-1.amazonaws.com",
 				"Region": "us-east-1",
-				"HostingBucketName": "naing-foodstall-react-serverless",
-				"CloudFrontDomainName": "d2wgy09bq2d2o5.cloudfront.net"
+				"HostingBucketName": "naing-react-foodstall-dev"
 			},
-			"lastPushDirHash": "zroYDaZNHUmyazG7o8//LG5oFZg="
+			"lastPushDirHash": "nEpaANLdmwtCCpPTM/CHLqZAhUU="
 		}
 	},
 	"auth": {
@@ -40,7 +37,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/auth/cognitod68390c2-cloudformation-template.yml",
 				"logicalId": "authcognitod68390c2"
 			},
-			"lastPushTimeStamp": "2018-11-13T12:46:37.085Z",
+			"lastPushTimeStamp": "2018-11-14T06:53:33.496Z",
 			"output": {
 				"AppClientSecret": "ftp1ea0ii7t0rps3ih7g99gejtjsndgc70ho2eho2640a6lp5oa",
 				"UserPoolId": "us-east-1_mkrJXHsV3",
@@ -51,6 +48,22 @@
 				"UserPoolName": "cognitod68390c2_userpool_d68390c2"
 			},
 			"lastPushDirHash": "GJGb0zODVtBvez6HOzHEOP5qYeM="
+		}
+	},
+	"storage": {
+		"foodstall1": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/reactfoodstall-20181113145117-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"logicalId": "storagefoodstall1"
+			},
+			"lastPushTimeStamp": "2018-11-14T06:53:33.501Z",
+			"output": {
+				"BucketName": "react-foodstall-storage",
+				"Region": "us-east-1"
+			},
+			"lastPushDirHash": "IEf9DWEgyvvAFRC+NgVvyI8OIhE="
 		}
 	}
 }

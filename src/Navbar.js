@@ -14,11 +14,11 @@ const Navbar = (props) => {
                 <li className="nav-divider"></li>
                 
                 <li>
-                    <NavLink to='/manageorder' className="btn btn-info btn-lg" style={{ textAlign: "left" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-shopping-cart"></span>MANAGE ORDER</NavLink>
+                    <NavLink to='/manageorder' className="btn btn-info btn-lg" style={{ textAlign: "left" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-cutlery"></span>MANAGE FOOD</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
-                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{ textAlign: "left", backgroundColor: "orange" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-th-list"></span>ALL ORDERS</NavLink>
+                    <NavLink to='/Summary/grid' className="btn btn-warning btn-lg" style={{ textAlign: "left", backgroundColor: "orange" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-th"></span>MANAGE ORDERS</NavLink>
                 </li>
             </ul>
         </div >

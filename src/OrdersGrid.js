@@ -2,6 +2,7 @@ import ReactDataGrid from 'react-data-grid';
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import ReactLoading from 'react-loading';
+import S3PdfUpload from './S3PdfUpload';
 
 const { Toolbar, Data: { Selectors } } = require('react-data-grid-addons');
 
@@ -41,6 +42,7 @@ class OrdersGrid extends React.Component {
           orders.map(od => {
 
             return rows.push({
+              orderid: od.id,
               customer: od.customer,
               food: od.food,
               size: od.size,
@@ -54,7 +56,8 @@ class OrdersGrid extends React.Component {
 
         this.setState({
           rows: rows,
-          loading: false
+          loading: false,
+          selectedRow: null,
         })
       });
   }
@@ -98,23 +101,47 @@ class OrdersGrid extends React.Component {
     this.setState({ filters: {} });
   };
 
+
+  onRowClick = (rowIdx, row) => {
+    let rows = this.state.rows.slice();
+    //rows[rowIdx] = Object.assign({}, row, {isSelected: !row.isSelected});
+    this.setState({ selectedRow: row });
+    console.log(row);
+  };
+
   render() {
     return (
       <div>
-        {this.state.loading && <div><p>Getting orders...</p>
-                   <ReactLoading type="bubbles" color="peru" height={100} width={100} />
+      <div  className="jumbotron" style={{padding:"30px"}}>
+        {this.state.loading && <div ><p>Getting orders...</p>
+          <ReactLoading type="bubbles" color="peru" height={100} width={100} />
         </div>}
         {!this.state.loading &&
-          <ReactDataGrid
-            columns={this._columns}
-            rowGetter={this.rowGetter}
-            enableCellSelect={true}
-            rowsCount={this.getSize()}
-            minHeight={500}
-            toolbar={<Toolbar enableFilter={true} />}
-            onAddFilter={this.handleFilterChange}
-            onClearFilters={this.onClearFilters}
-          />}
+          <div >
+            <ReactDataGrid
+              columns={this._columns}
+              rowGetter={this.rowGetter}
+              rowSelection={{
+                showCheckbox: false,
+                selectBy: {
+                  isSelectedKey: 'isSelected'
+                }
+              }}
+              onRowClick={this.onRowClick}
+              rowsCount={this.getSize()}
+              minHeight={380}
+              toolbar={<Toolbar enableFilter={true} />}
+              onAddFilter={this.handleFilterChange}
+              onClearFilters={this.onClearFilters}
+
+            />
+          </div>}
+          </div>
+          
+            {!this.state.loading && <div className="jumbotron"><S3PdfUpload orderid={this.state.selectedRow ? this.state.selectedRow.orderid : " "} />   </div>}
+
+         
+
       </div>);
   }
 }

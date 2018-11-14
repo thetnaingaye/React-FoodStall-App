@@ -6,7 +6,8 @@ import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Select from 'react-select';
 import Auth from '@aws-amplify/auth';
-
+import { observer, inject } from 'mobx-react';
+import { withRouter } from "react-router-dom";
 
 
 
@@ -16,14 +17,14 @@ const toppings = [
     { value: 'More Salt', label: 'More Salt' }
 ];
 
-
+@withRouter
+@inject("orderStore")
+@observer
 class CreateOrder extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            customer: Auth.user.username,
-            customererror: "",
             food: "",
             fooderror: "",
             size: "Small",
@@ -36,6 +37,8 @@ class CreateOrder extends Component {
 
         }
     }
+
+ 
     componentDidMount() {
         fetch('https://66e64h2nef.execute-api.us-east-1.amazonaws.com/prod/myServerlessWebsite')
         .then(response => response.json())
@@ -53,19 +56,11 @@ class CreateOrder extends Component {
         this.setState({ selectedTopping });
         console.log(`Option selected:`, selectedTopping);
     }
-    nameInputHandler = (e) => {
-        this.setState({
-            customer: e.target.value,
-            customererror: "",
-            isFormSuccess: false
-        });
-    };
-
     orderHandler = (e) => {
         e.preventDefault();
         const toppings = this.state.selectedTopping? this.state.selectedTopping.map(t => t.value) : ""
         const order = {
-            customer: this.state.customer,
+            customer: this.props.orderStore.user,
             food: this.state.food,
             size: this.state.size,
             toppings : toppings? toppings : []
@@ -73,6 +68,7 @@ class CreateOrder extends Component {
         console.log(order);
         this.props.createOrder(order);
         this.setState({
+            customer :this.props.orderStore.user,
             isFormSuccess: true
         })
 
@@ -97,11 +93,8 @@ class CreateOrder extends Component {
         });
     }
     resetForm = () => {
-        NotificationManager.success(`Order ${this.state.size} size ${this.state.food} is added to cart`, `Customer : ${this.state.customer}`, 3000)
+        NotificationManager.success(`Order ${this.state.size} size ${this.state.food} is added to cart`, `Customer : ${this.props.orderStore.user}`, 3000)
         this.setState({
-
-            customer: "",
-            customererror: "",
             food: "",
             fooderror: "",
             size: "Small",
@@ -117,7 +110,7 @@ class CreateOrder extends Component {
             <div>
 
                 <form onSubmit={this.formHandler} >
-                    <Customer name={this.state.customer} error={this.state.customererror} nameInputHandler={this.nameInputHandler} />
+                    <Customer name={this.props.orderStore.user} />
                     <Food foodList={this.state.foodList} food={this.state.food} error={this.state.fooderror} foodInputHandler={this.foodDropDownHandler} />
 
                     <label>Toppings:</label>
@@ -131,7 +124,7 @@ class CreateOrder extends Component {
                     <Size size={this.state.size} sizeChanged={this.radioSizeHandler} />
 
                     <br />
-                    <button className="btn btn-success btn-lg" onClick={this.orderHandler} disabled={!(this.state.customer && this.state.food && this.state.size)} >Add Order</button>
+                    <button className="btn btn-success btn-lg" onClick={this.orderHandler} disabled={!(this.state.food && this.state.size)} >Add Order</button>
                 </form>
 
 
@@ -139,7 +132,7 @@ class CreateOrder extends Component {
         )
 
         return (
-            <div className="myForm">
+            <div className="myForm jumbotron">
                 <div className="page-header">
                     <h2>Let's eat !</h2>
                 </div>

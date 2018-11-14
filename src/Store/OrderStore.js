@@ -1,9 +1,12 @@
 import { observable, computed, action } from "mobx";
+import Customer from "../Order/Form/Customer";
 
 
 class OrderStore {
    @observable orders = [];
    @observable isAuthenticated = false;
+   @observable user= "";
+
    @action.bound 
    addOrder(item) {
      this.orders.push(item)

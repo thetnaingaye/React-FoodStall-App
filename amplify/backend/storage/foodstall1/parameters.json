@@ -1,0 +1,9 @@
+{
+    "bucketName": "react-foodstall-storage",
+    "authPolicyName": "s3_amplify_83832a93",
+    "unauthPolicyName": "s3_amplify_83832a93",
+    "authRoleName": "reactfoodstall-20181113145117-authRole",
+    "unauthRoleName": "reactfoodstall-20181113145117-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": ""
+}

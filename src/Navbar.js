@@ -11,10 +11,10 @@ const Navbar = (props) => {
     const ownerMenu = (
         <div className="sidebar-nav">
             <ul className="nav">
-                <li className="nav-divider"></li>
+             
                 
                 <li>
-                    <NavLink to='/manageorder' className="btn btn-info btn-lg" style={{ textAlign: "left" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-cutlery"></span>MANAGE FOOD</NavLink>
+                    <NavLink to='/manageinvoice' className="btn btn-info btn-lg" style={{ textAlign: "left" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-cutlery"></span>MANAGE INVOICES</NavLink>
                 </li>
                 <li className="nav-divider"></li>
                 <li>
@@ -27,7 +27,6 @@ const Navbar = (props) => {
     const customerMenu = (
         <div className="sidebar-nav">
             <ul className="nav">
-                <li className="nav-divider"></li>
                 <li>
                     <NavLink to='/' className="btn btn-danger btn-lg" style={{ textAlign: "left" }} ><span style={{ paddingRight: "15px" }} className="glyphicon glyphicon-cutlery"></span>NEW ORDER</NavLink>
                 </li>

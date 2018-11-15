@@ -17,7 +17,7 @@ import aws_exports from './aws-exports';
 import Header from './Header';
 import decode from 'jwt-decode';
 import { Authenticator } from 'aws-amplify-react/dist/Auth';
-
+import ManageInvoice from './ManageInvoice';
 
 
 Amplify.configure(aws_exports);
@@ -118,13 +118,12 @@ class App extends Component {
           <Navbar username={Auth.user.username}/>
         </div>
         <div className="col-md-9">
-          <br />
           <div>
 
             <Switch>
               <Route path="/checkout" render={() => <Order orders={this.state.orders} deleteOrder={this.deleteOrderHandler} />} exact />
               <Route path="/" render={() => <CreateOrder createOrder={this.createOrderHanlder} />} exact />
-              {isOwner && <Route path="/ManageOrder" render={() => <div className="jumbotron"><h2>Food List</h2></div>} exact />}
+              {isOwner && <Route path="/manageinvoice" render={() => <ManageInvoice />} exact />}
               {isOwner && <Route path="/summary/grid" render={() => <OrdersGrid orders={this.state.orders} />} exact />}
               <Route path="/summary/anttable" render={() => <OrdersAntTable orders={this.state.orders} />} exact />
 

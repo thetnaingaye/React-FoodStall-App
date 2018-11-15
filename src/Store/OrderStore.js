@@ -1,25 +1,29 @@
 import { observable, computed, action } from "mobx";
-import Customer from "../Order/Form/Customer";
+import { Storage } from 'aws-amplify';
+
 
 
 class OrderStore {
-   @observable orders = [];
-   @observable isAuthenticated = false;
-   @observable user= "";
+  @observable orders = [];
+  @observable isAuthenticated = false;
+  @observable user = "";
 
-   @action.bound 
-   addOrder(item) {
-     this.orders.push(item)
-   }
+  @observable ordersFromDb = [];
 
-   @action.bound 
-   removeOrder(item) {
-     this.orders.pop(item)
-   }
+  @action.bound
+  addOrder(item) {
+    this.orders.push(item)
+  }
 
-   @computed get totalOrders() {
+  @action.bound
+  removeOrder(item) {
+    this.orders.pop(item)
+  }
+
+  @computed get totalOrders() {
     return this.orders.length;
   }
+
 }
 
 export default OrderStore;

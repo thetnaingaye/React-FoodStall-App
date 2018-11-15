@@ -2,7 +2,9 @@ import ReactDataGrid from 'react-data-grid';
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import ReactLoading from 'react-loading';
-import S3PdfUpload from './S3PdfUpload';
+import S3FileUpload from './S3FileUpload';
+import { Storage } from 'aws-amplify';
+
 
 const { Toolbar, Data: { Selectors } } = require('react-data-grid-addons');
 
@@ -38,6 +40,7 @@ class OrdersGrid extends React.Component {
       .then(data => {
         let rows = []
         const orders = data;
+        this.props.orderStore.ordersFromDb = orders;
         if (orders) {
           orders.map(od => {
 
@@ -60,6 +63,8 @@ class OrdersGrid extends React.Component {
           selectedRow: null,
         })
       });
+
+    this.getInvoices();
   }
 
   getOrders() {
@@ -71,6 +76,21 @@ class OrdersGrid extends React.Component {
     } else {
       return null;
     }
+  }
+
+  getInvoices = () => {
+    Storage.list('')
+      .then(result => {
+        console.log("s3 list :" + JSON.stringify(result))
+        const invoiceIds = []
+        result.map(e => {
+          invoiceIds.push(e.key.slice(0, e.key.indexOf('.')))
+        })
+        this.setState({
+          invoiceIds: invoiceIds
+        })
+      })
+      .catch(err => console.log(err));
   }
 
   getRows = () => {
@@ -103,44 +123,59 @@ class OrdersGrid extends React.Component {
 
 
   onRowClick = (rowIdx, row) => {
-    let rows = this.state.rows.slice();
-    //rows[rowIdx] = Object.assign({}, row, {isSelected: !row.isSelected});
-    this.setState({ selectedRow: row });
-    console.log(row);
+    if (row) {
+      console.log(row.orderid);
+      this.getInvoices();
+
+      let rows = this.state.rows.slice();
+      rows[rowIdx] = Object.assign({}, row, { isSelected: !row.isSelected });
+      let hasInvoice = false;
+      if (this.state.invoiceIds && this.state.invoiceIds.includes(row.orderid)) {
+        hasInvoice = true;
+      }
+      this.setState(
+        {
+          selectedRow: row,
+          hasInvoice: hasInvoice
+        });
+    }
+
   };
+
+  reload = () => {
+   this.componentDidMount();
+  }
 
   render() {
     return (
       <div>
-      <div  className="jumbotron" style={{padding:"30px"}}>
-        {this.state.loading && <div ><p>Getting orders...</p>
-          <ReactLoading type="bubbles" color="peru" height={100} width={100} />
-        </div>}
-        {!this.state.loading &&
-          <div >
-            <ReactDataGrid
-              columns={this._columns}
-              rowGetter={this.rowGetter}
-              rowSelection={{
-                showCheckbox: false,
-                selectBy: {
-                  isSelectedKey: 'isSelected'
-                }
-              }}
-              onRowClick={this.onRowClick}
-              rowsCount={this.getSize()}
-              minHeight={380}
-              toolbar={<Toolbar enableFilter={true} />}
-              onAddFilter={this.handleFilterChange}
-              onClearFilters={this.onClearFilters}
-
-            />
+        <div className="jumbotron" style={{ padding: "30px" }}>
+          {this.state.loading && <div ><p>Getting orders...</p>
+            <ReactLoading type="bubbles" color="peru" height={100} width={100} />
           </div>}
-          </div>
-          
-            {!this.state.loading && <div className="jumbotron"><S3PdfUpload orderid={this.state.selectedRow ? this.state.selectedRow.orderid : " "} />   </div>}
+          {!this.state.loading &&
+            <div >
+              <ReactDataGrid
+                columns={this._columns}
+                rowGetter={this.rowGetter}
+                rowSelection={{
+                  showCheckbox: false,
+                  selectBy: {
+                    isSelectedKey: 'isSelected'
+                  }
+                }}
+                onRowClick={this.onRowClick}
+                rowsCount={this.getSize()}
+                minHeight={400}
+                toolbar={<Toolbar enableFilter={true} />}
+                onAddFilter={this.handleFilterChange}
+                onClearFilters={this.onClearFilters}
 
-         
+              />
+            </div>}
+        </div>
+
+        {this.state.selectedRow && <div className="jumbotron"><S3FileUpload orderid={this.state.selectedRow ? this.state.selectedRow.orderid : " "} hasInvoice={this.state.hasInvoice} reload={this.reload} />  </div>}
 
       </div>);
   }
